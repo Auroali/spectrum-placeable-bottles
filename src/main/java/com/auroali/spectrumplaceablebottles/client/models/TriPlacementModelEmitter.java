@@ -20,6 +20,17 @@ public class TriPlacementModelEmitter {
       .getRenderer()
       .materialById(RenderMaterial.MATERIAL_STANDARD);
 
+    /**
+     * Emits a model's quads, adjusting each quad's color index to
+     * match up with {@link TriPlacementColorProvider}'s expected values
+     *
+     * @param model          the model to emit
+     * @param index          the index we are currently rendering, for color index calculation
+     * @param state          the block state being rendered
+     * @param randomSupplier the random supplier
+     * @param context        the render context
+     * @see TriPlacementColorProvider
+     */
     public static void emitQuads(BakedModel model, int index, BlockState state, Supplier<Random> randomSupplier, RenderContext context) {
         final QuadEmitter emitter = context.getEmitter();
 
@@ -34,7 +45,8 @@ public class TriPlacementModelEmitter {
             for (int j = 0; j < quads.size(); j++) {
                 BakedQuad quad = quads.get(j);
                 emitter.fromVanilla(quad, MATERIAL, direction);
-                emitter.colorIndex(index * TriPlacementColorProvider.TINT_BLOCK_SIZE + quad.getColorIndex());
+                if (quad.getColorIndex() != -1)
+                    emitter.colorIndex(index * TriPlacementColorProvider.TINT_BLOCK_SIZE + quad.getColorIndex());
                 emitter.emit();
             }
         }

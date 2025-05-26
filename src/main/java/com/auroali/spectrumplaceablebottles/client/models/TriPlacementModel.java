@@ -19,14 +19,25 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockRenderView;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Supplier;
 
+/**
+ * Model that dynamically emits up to 3 other models when rendered, depending
+ * on the corresponding {@link TriPlacementBlockEntity}'s contents
+ */
 public class TriPlacementModel implements FabricBakedModel, BakedModel {
     private final HashMap<ModelKey, BakedModel> models;
     private final Sprite particle;
 
+    /**
+     * Constructs a new TriPlacementModel
+     *
+     * @param models the item to model map
+     * @param sprite the sprite to use for particles
+     */
     public TriPlacementModel(HashMap<ModelKey, BakedModel> models, Sprite sprite) {
         this.models = models;
         this.particle = sprite;
@@ -54,11 +65,12 @@ public class TriPlacementModel implements FabricBakedModel, BakedModel {
 
     @Override
     public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
+        // no need to emit item quads, as this will never be in item form
     }
 
     @Override
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction face, Random random) {
-        return List.of();
+        return Collections.emptyList();
     }
 
     @Override

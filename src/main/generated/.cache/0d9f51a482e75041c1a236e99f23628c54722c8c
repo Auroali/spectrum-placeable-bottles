@@ -1,4 +1,4 @@
-// 1.20.1	2025-05-26T18:16:53.557845503	spectrumplaceablebottles:3d_items/Model Definitions
+// 1.20.1	2025-05-26T20:40:56.36952162	spectrumplaceablebottles:3d_items/Model Definitions
 9ad04fde158f4ff80e27656593fd0ee92b79c1ca resourcepacks/3d_items/assets/spectrum/models/item/junket.json
 12b6ebc22311fe7d913c256aa144b4f7226a2e8a resourcepacks/3d_items/assets/spectrum/models/item/karak_chai.json
 10a8acad95f7ddb7ae6f7ad258b31ab9a238e417 resourcepacks/3d_items/assets/spectrum/models/item/glistering_jelly_tea.json
@@ -17,7 +17,7 @@ c815f58d1af9589db541787d0301571b0dacd085 resourcepacks/3d_items/assets/spectrum/
 551aa314d5d27900c1b8660ac3d2ed82e389c41a resourcepacks/3d_items/assets/spectrum/models/item/morchella.json
 25d2eff87d2094f904bc243b2fa77f513190e5ae resourcepacks/3d_items/assets/spectrum/models/item/bristle_mead.json
 7b7a9a1c1c9505bef8d789a1444520f5e735015d resourcepacks/3d_items/assets/spectrum/models/item/slushslide.json
-a98826f716ab3a1cfda20ee0ce559eb9b88854ae resourcepacks/3d_items/assets/spectrum/models/item/reprise.json
 1d9c37a033c63038679d19d314e9164779c73b34 resourcepacks/3d_items/assets/spectrum/models/item/golden_bristle_tea.json
+a98826f716ab3a1cfda20ee0ce559eb9b88854ae resourcepacks/3d_items/assets/spectrum/models/item/reprise.json
 8d60ee6ce5644893412edd52317471f1b8e76d1f resourcepacks/3d_items/assets/spectrum/models/item/pure_alcohol.json
 2794aeed099ce74628fff166bce5579a69e9f8dc resourcepacks/3d_items/assets/spectrum/models/item/hot_chocolate.json

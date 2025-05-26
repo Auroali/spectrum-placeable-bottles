@@ -1,5 +1,6 @@
 package com.auroali.spectrumplaceablebottles.common.blocks;
 
+import com.auroali.spectrumplaceablebottles.common.events.PopulateAcceptableItemSetCallback;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -9,8 +10,13 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Wrapper around a {@link Set} that both prevents modification and supports lazy loading
+ */
 public class AcceptableItemSet implements Collection<Item> {
     public static final AcceptableItemSet EMPTY = AcceptableItemSet.of(Collections::emptySet);
+    private final Object lock = new Object();
+    private boolean isResolving;
     private final Supplier<Set<Item>> itemSupplier;
     private Set<Item> items;
 
@@ -19,8 +25,25 @@ public class AcceptableItemSet implements Collection<Item> {
     }
 
     private void resolve() {
-        if (this.items == null)
-            this.items = this.itemSupplier.get();
+        if (this.items == null) {
+            synchronized (this.lock) {
+                if (this.items != null)
+                    return;
+
+                Set<Item> items = this.itemSupplier.get();
+                Set<Item> eventSet = new HashSet<>(items);
+                PopulateAcceptableItemSetCallback.Context ctx = new PopulateAcceptableItemSetCallback.Context(
+                  this,
+                  eventSet
+                );
+
+                PopulateAcceptableItemSetCallback.CALLBACK.invoker().populate(ctx);
+                if (ctx.isModified())
+                    items = Set.of(eventSet.toArray(Item[]::new));
+
+                this.items = items;
+            }
+        }
     }
 
     @Override
@@ -115,10 +138,23 @@ public class AcceptableItemSet implements Collection<Item> {
         return new UnsupportedOperationException(obj.getClass().getSimpleName() + " does not support modification");
     }
 
+    /**
+     * Creates a new {@link AcceptableItemSet}. The set will not be resolved
+     * until necessary, to prevent issues from loading certain objects earlier than expected
+     *
+     * @param items the item set supplier
+     * @return the new {@link AcceptableItemSet}
+     */
     public static AcceptableItemSet of(Supplier<Set<Item>> items) {
         return new AcceptableItemSet(items);
     }
 
+    /**
+     * Creates a new {@link AcceptableItemSet} that contains the contents of all provided sets
+     *
+     * @param sets all sets to use
+     * @return the new {@link AcceptableItemSet}
+     */
     public static AcceptableItemSet composite(AcceptableItemSet... sets) {
         return new AcceptableItemSet(() -> Arrays.stream(sets)
           .flatMap(AcceptableItemSet::stream)

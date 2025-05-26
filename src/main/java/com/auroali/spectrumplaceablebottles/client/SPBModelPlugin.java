@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class SPBModelPlugin implements ModelLoadingPlugin {
+    // the transforms for each index at each count value
     private static final Int2ObjectMap<List<AffineTransformation>> TRANSFORMS = new Int2ObjectOpenHashMap<>() {{
         this.put(1, List.of(
           AffineTransformation.identity()
@@ -71,6 +72,7 @@ public class SPBModelPlugin implements ModelLoadingPlugin {
 
     @Override
     public void onInitializeModelLoader(Context ctx) {
+        // register the custom model for every placeable block
         for (Block block : SPBBlocks.ALL_PLACEABLES) {
             if (block instanceof TriPlacementBlock triPlacement) {
                 ctx.registerBlockStateResolver(block, context -> {

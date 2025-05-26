@@ -18,6 +18,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.function.Function;
 
+/**
+ * Represents an unbaked {@link TriPlacementModel}. Generates the item model map when baked
+ */
 public class UnbakedTriPlacementModel implements UnbakedModel {
     private final AcceptableItemSet items;
     private final List<Identifier> dependencies;

@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class WorldRendererMixin {
     @WrapWithCondition(method = "processWorldEvent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/world/ClientWorld;addBlockBreakParticles(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)V"))
     public boolean spectrumplaceablebottles$preventBreakParticles(ClientWorld instance, BlockPos pos, BlockState state) {
+        // prevent TriPlacementBlocks from having break particles
         return !(state.getBlock() instanceof TriPlacementBlock);
     }
 }

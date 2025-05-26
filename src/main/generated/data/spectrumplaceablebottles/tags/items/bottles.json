@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "spectrum:bristle_mead",
+    "spectrum:morchella",
+    "spectrum:jade_wine",
+    "spectrum:aqua_regia",
+    "spectrum:freigeist",
+    "spectrum:reprise",
+    "spectrum:nectered_viognier",
+    "spectrum:chrysocolla",
+    "spectrum:evernectar",
+    "spectrum:suspicious_brew",
+    "spectrum:infused_beverage",
+    "spectrum:pure_alcohol"
+  ]
+}

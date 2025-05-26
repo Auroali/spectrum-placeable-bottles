@@ -1,0 +1,4 @@
+// 1.20.1	2025-05-26T20:40:56.370784197	Spectrum: Placeable Bottles/Tags for minecraft:item
+148aec62593a1e3a5409116bc9eb4aacfd3d6e58 data/spectrumplaceablebottles/tags/items/placeable.json
+2d17157c29fc63d0ec3e1e11bcd2f1779d1a12dc data/spectrumplaceablebottles/tags/items/mugs.json
+802746936cd1f34e5c40774f407054862461df8d data/spectrumplaceablebottles/tags/items/bottles.json
