@@ -1,0 +1,6 @@
+{
+  "parent": "spectrum:placeablebottles/wine",
+  "textures": {
+    "0": "spectrumplaceablebottles:block/nectered_viognier"
+  }
+}

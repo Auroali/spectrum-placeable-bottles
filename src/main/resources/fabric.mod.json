@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "spectrumplaceablebottles",
+  "version": "${version}",
+  "name": "Spectrum: Placeable Bottles",
+  "description": "Spectrum addon that allows placing bottles as decorative blocks",
+  "authors": [
+    "Auroali"
+  ],
+  "contact": {
+  },
+  "license": "MIT",
+  "icon": "assets/spectrumplaceablebottles/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.auroali.spectrumplaceablebottles.SpectrumPlaceableBottles"
+    ],
+    "client": [
+      "com.auroali.spectrumplaceablebottles.SpectrumPlaceableBottlesClient"
+    ],
+    "fabric-datagen": [
+      "com.auroali.spectrumplaceablebottles.SpectrumPlaceableBottlesDataGenerator"
+    ]
+  },
+  "mixins": [
+    "spectrumplaceablebottles.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.14",
+    "minecraft": "~1.20.1",
+    "java": ">=17",
+    "fabric-api": "*",
+    "spectrum": ">=1.8.1"
+  }
+}
