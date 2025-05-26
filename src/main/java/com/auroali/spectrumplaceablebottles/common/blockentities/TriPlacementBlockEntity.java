@@ -12,6 +12,7 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.util.Clearable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.Nullable;
@@ -19,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TriPlacementBlockEntity extends BlockEntity {
+public class TriPlacementBlockEntity extends BlockEntity implements Clearable {
     private final List<ItemStack> items;
 
     public TriPlacementBlockEntity(BlockPos pos, BlockState state) {
@@ -50,6 +51,8 @@ public class TriPlacementBlockEntity extends BlockEntity {
     }
 
     protected void updateState(int newcount) {
+        if (this.getCachedState().get(TriPlacementBlock.COUNT) == newcount)
+            return;
         if (this.getWorld() != null) {
             this.getWorld().setBlockState(
               this.getPos(),
@@ -95,5 +98,12 @@ public class TriPlacementBlockEntity extends BlockEntity {
     @Override
     public @Nullable Packet<ClientPlayPacketListener> toUpdatePacket() {
         return BlockEntityUpdateS2CPacket.create(this);
+    }
+
+    @Override
+    public void clear() {
+        this.items.clear();
+        this.updateState(1);
+        this.update();
     }
 }

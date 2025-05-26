@@ -7,7 +7,6 @@ import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
@@ -19,38 +18,26 @@ import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ItemScatterer;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Set;
-
 public class TriPlacementBlock extends BlockWithEntity implements Waterloggable {
-    public static final VoxelShape SHAPE_1 = VoxelShapes.cuboid(
-      0.375f, 0, 0.375f,
-      0.625f, 0.75f, 0.625f
-    );
-    public static final VoxelShape SHAPE_2 = VoxelShapes.cuboid(
-      0.1875f, 0, 0.1875f,
-      0.8125f, 0.75f, 0.8125f
-    );
-    public static final VoxelShape SHAPE_3 = VoxelShapes.cuboid(
-      0.1875f, 0, 0.1875f,
-      0.8125f, 0.75f, 0.8125f
-    );
     public static final IntProperty COUNT = IntProperty.of("count", 1, 3);
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
-    private final Set<Item> accepts;
+    private final AcceptableItemSet accepts;
+    private final VoxelShape[] shapes;
 
-    public TriPlacementBlock(Settings settings, Set<Item> accepts) {
+    public TriPlacementBlock(Settings settings, AcceptableItemSet accepts, VoxelShape... shapes) {
         super(settings);
         this.setDefaultState(this.getStateManager()
           .getDefaultState()
@@ -58,6 +45,10 @@ public class TriPlacementBlock extends BlockWithEntity implements Waterloggable 
           .with(WATERLOGGED, false)
         );
         this.accepts = accepts;
+        this.shapes = shapes;
+        if (shapes.length != 3) {
+            throw new IllegalArgumentException("Expected 3 shapes, got " + this.shapes.length);
+        }
     }
 
     public static ActionResult place(PlayerEntity playerEntity, World world, Hand hand, ItemStack stack, BlockHitResult result, Block block) {
@@ -80,7 +71,7 @@ public class TriPlacementBlock extends BlockWithEntity implements Waterloggable 
           group.getPitch() * 0.8F
         );
         world.emitGameEvent(GameEvent.BLOCK_PLACE, context.getBlockPos(), GameEvent.Emitter.of(playerEntity, state));
-        ItemStack toInsert = playerEntity == null || !playerEntity.getAbilities().creativeMode
+        ItemStack toInsert = playerEntity != null && playerEntity.getAbilities().creativeMode
           ? stack.copy().split(1)
           : stack.split(1);
         if (world.getBlockEntity(context.getBlockPos()) instanceof TriPlacementBlockEntity entity) {
@@ -165,11 +156,7 @@ public class TriPlacementBlock extends BlockWithEntity implements Waterloggable 
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return switch (state.get(COUNT)) {
-            case 2 -> SHAPE_2;
-            case 3 -> SHAPE_3;
-            default -> SHAPE_1;
-        };
+        return this.shapes[state.get(COUNT) - 1];
     }
 
     @Override
@@ -182,7 +169,7 @@ public class TriPlacementBlock extends BlockWithEntity implements Waterloggable 
         return BlockRenderType.MODEL;
     }
 
-    public Set<Item> getAcceptableItems() {
+    public AcceptableItemSet getAcceptableItems() {
         return this.accepts;
     }
 
@@ -209,5 +196,20 @@ public class TriPlacementBlock extends BlockWithEntity implements Waterloggable 
     @Override
     public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
         return false;
+    }
+
+    @Override
+    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+        if (!state.isOf(newState.getBlock())) {
+            if (world.getBlockEntity(pos) instanceof TriPlacementBlockEntity entity) {
+                ItemScatterer.spawn(
+                  world,
+                  pos,
+                  DefaultedList.copyOf(ItemStack.EMPTY, entity.getItems().toArray(ItemStack[]::new))
+                );
+            }
+
+            super.onStateReplaced(state, world, pos, newState, moved);
+        }
     }
 }

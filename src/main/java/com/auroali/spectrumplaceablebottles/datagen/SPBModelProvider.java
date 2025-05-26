@@ -23,6 +23,7 @@ public class SPBModelProvider extends FabricModelProvider {
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         this.registerTriPlacement(blockStateModelGenerator, SPBBlocks.BOTTLES);
+        this.registerTriPlacement(blockStateModelGenerator, SPBBlocks.MUGS);
     }
 
     @Override

@@ -1,0 +1,6 @@
+{
+  "parent": "spectrum:placeablebottles/tea_cup",
+  "textures": {
+    "0": "spectrumplaceablebottles:block/demon_tea"
+  }
+}

@@ -20,5 +20,6 @@ public class SpectrumPlaceableBottlesClient implements ClientModInitializer {
         );
 
         BlockRenderLayerMap.INSTANCE.putBlock(SPBBlocks.BOTTLES, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(SPBBlocks.MUGS, RenderLayer.getCutout());
     }
 }

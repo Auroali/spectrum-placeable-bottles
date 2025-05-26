@@ -1,0 +1,6 @@
+{
+  "parent": "spectrum:placeablebottles/mug_extra",
+  "textures": {
+    "0": "spectrumplaceablebottles:block/golden_bristle_tea"
+  }
+}

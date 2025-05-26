@@ -1,3 +1,5 @@
-// 1.20.1	2025-05-25T16:41:01.441494858	Spectrum: Placeable Bottles/Model Definitions
+// 1.20.1	2025-05-26T18:16:53.558623295	Spectrum: Placeable Bottles/Model Definitions
 91785a2012b40faabb2997a19d1dac0e69cbfd32 assets/spectrumplaceablebottles/models/block/bottles.json
 ed9abccdc0ec32cf40026be567d92a396716d795 assets/spectrumplaceablebottles/blockstates/bottles.json
+fcde7e416d66d8ec6c0c336ae47af115effed016 assets/spectrumplaceablebottles/blockstates/mugs.json
+91785a2012b40faabb2997a19d1dac0e69cbfd32 assets/spectrumplaceablebottles/models/block/mugs.json

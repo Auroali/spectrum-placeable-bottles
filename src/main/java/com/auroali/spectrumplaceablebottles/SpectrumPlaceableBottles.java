@@ -3,10 +3,14 @@ package com.auroali.spectrumplaceablebottles;
 import com.auroali.spectrumplaceablebottles.common.blocks.TriPlacementBlock;
 import com.auroali.spectrumplaceablebottles.common.registry.SPBBlockEntities;
 import com.auroali.spectrumplaceablebottles.common.registry.SPBBlocks;
-import com.auroali.spectrumplaceablebottles.common.registry.SPBPlaceableItems;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
@@ -29,11 +33,22 @@ public class SpectrumPlaceableBottles implements ModInitializer {
             ItemStack stack = playerEntity.getStackInHand(hand);
             if (!playerEntity.isSneaking())
                 return ActionResult.PASS;
-            if (SPBPlaceableItems.BOTTLES.contains(stack.getItem())) {
-                return TriPlacementBlock.place(playerEntity, world, hand, stack, hitResult, SPBBlocks.BOTTLES);
+            for (Block block : SPBBlocks.ALL_PLACEABLES) {
+                if (block instanceof TriPlacementBlock triPlacement && triPlacement.getAcceptableItems().contains(stack)) {
+                    return TriPlacementBlock.place(playerEntity, world, hand, stack, hitResult, block);
+                }
             }
             return ActionResult.PASS;
         });
+
+        FabricLoader.getInstance().getModContainer(MOD_ID).ifPresent(container ->
+          ResourceManagerHelper.registerBuiltinResourcePack(
+            id("3d_items"),
+            container,
+            Text.of("3D Items"),
+            ResourcePackActivationType.NORMAL
+          )
+        );
     }
 
     public static Identifier id(String name) {

@@ -2,6 +2,7 @@ package com.auroali.spectrumplaceablebottles;
 
 import com.auroali.spectrumplaceablebottles.datagen.SPBLangProvider;
 import com.auroali.spectrumplaceablebottles.datagen.SPBModelProvider;
+import com.auroali.spectrumplaceablebottles.datagen.SPBResourcePackModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
@@ -11,5 +12,7 @@ public class SpectrumPlaceableBottlesDataGenerator implements DataGeneratorEntry
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
         pack.addProvider(SPBLangProvider::new);
         pack.addProvider(SPBModelProvider::new);
+        FabricDataGenerator.Pack builtinPack = fabricDataGenerator.createBuiltinResourcePack(SpectrumPlaceableBottles.id("3d_items"));
+        builtinPack.addProvider(SPBResourcePackModelProvider::new);
     }
 }

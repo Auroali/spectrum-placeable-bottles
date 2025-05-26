@@ -9,7 +9,7 @@ import net.minecraft.registry.Registry;
 public class SPBBlockEntities {
     public static final BlockEntityType<TriPlacementBlockEntity> TRI_PLACEMENT_ENTITY = BlockEntityType.Builder.create(
       TriPlacementBlockEntity::new,
-      SPBBlocks.BOTTLES
+      SPBBlocks.BOTTLES, SPBBlocks.MUGS
     ).build(null);
 
     public static void register() {

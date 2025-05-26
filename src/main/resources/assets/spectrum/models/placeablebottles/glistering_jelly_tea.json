@@ -1,0 +1,6 @@
+{
+  "parent": "spectrum:placeablebottles/tall_mug",
+  "textures": {
+    "0": "spectrumplaceablebottles:block/glistering_jelly_tea"
+  }
+}
