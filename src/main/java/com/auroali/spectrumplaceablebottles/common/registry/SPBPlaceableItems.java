@@ -18,7 +18,8 @@ public class SPBPlaceableItems {
       SpectrumItems.PURE_ALCOHOL,
       SpectrumItems.SUSPICIOUS_BREW,
       SpectrumItems.REPRISE,
-      SpectrumItems.BRISTLE_MEAD
+      SpectrumItems.BRISTLE_MEAD,
+      SpectrumItems.BITTER_OILS
     ));
 
     public static final AcceptableItemSet MUGS = AcceptableItemSet.of(() -> Set.of(
