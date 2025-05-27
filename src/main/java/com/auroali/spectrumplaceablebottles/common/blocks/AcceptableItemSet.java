@@ -6,6 +6,8 @@ import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
+import java.util.function.IntFunction;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -14,14 +16,21 @@ import java.util.stream.Stream;
  * Wrapper around a {@link Set} that both prevents modification and supports lazy loading
  */
 public class AcceptableItemSet implements Collection<Item> {
-    public static final AcceptableItemSet EMPTY = AcceptableItemSet.of(Collections::emptySet);
+    public static final AcceptableItemSet EMPTY = new AcceptableItemSet();
     private final Object lock = new Object();
-    private boolean isResolving;
     private final Supplier<Set<Item>> itemSupplier;
     private Set<Item> items;
 
     protected AcceptableItemSet(Supplier<Set<Item>> items) {
         this.itemSupplier = items;
+    }
+
+    /**
+     * Only used for {@link AcceptableItemSet#EMPTY}
+     */
+    private AcceptableItemSet() {
+        this.items = Collections.emptySet();
+        this.itemSupplier = Collections::emptySet;
     }
 
     private void resolve() {
@@ -87,12 +96,23 @@ public class AcceptableItemSet implements Collection<Item> {
     }
 
     @Override
+    public <T> T[] toArray(@NotNull IntFunction<T[]> generator) {
+        this.resolve();
+        return this.items.toArray(generator);
+    }
+
+    @Override
     public boolean add(Item item) {
         throw modifyException(this);
     }
 
     @Override
     public boolean remove(Object o) {
+        throw modifyException(this);
+    }
+
+    @Override
+    public boolean removeIf(@NotNull Predicate<? super Item> filter) {
         throw modifyException(this);
     }
 
@@ -132,6 +152,12 @@ public class AcceptableItemSet implements Collection<Item> {
     public Stream<Item> stream() {
         this.resolve();
         return this.items.stream();
+    }
+
+    @Override
+    public @NotNull Stream<Item> parallelStream() {
+        this.resolve();
+        return this.items.parallelStream();
     }
 
     private static UnsupportedOperationException modifyException(Object obj) {

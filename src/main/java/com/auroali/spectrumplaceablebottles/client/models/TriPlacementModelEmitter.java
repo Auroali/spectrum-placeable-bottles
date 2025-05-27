@@ -42,8 +42,7 @@ public class TriPlacementModelEmitter {
 
             List<BakedQuad> quads = model.getQuads(state, direction, randomSupplier.get());
 
-            for (int j = 0; j < quads.size(); j++) {
-                BakedQuad quad = quads.get(j);
+            for (BakedQuad quad : quads) {
                 emitter.fromVanilla(quad, MATERIAL, direction);
                 if (quad.getColorIndex() != -1)
                     emitter.colorIndex(index * TriPlacementColorProvider.TINT_BLOCK_SIZE + quad.getColorIndex());

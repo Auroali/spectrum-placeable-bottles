@@ -135,10 +135,6 @@ public class SPBModelPlugin implements ModelLoadingPlugin {
             return new PlacementBakeSettings(transformation);
         }
 
-        public static PlacementBakeSettings create() {
-            return new PlacementBakeSettings(AffineTransformation.identity());
-        }
-
         @Override
         public AffineTransformation getRotation() {
             return this.transform;

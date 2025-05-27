@@ -111,7 +111,7 @@ public class TriPlacementModel implements FabricBakedModel, BakedModel {
     public record ModelKey(Item item, int count, int i) {
         @Override
         public String toString() {
-            return Registries.ITEM.getId(this.item).toString() + "[i=" + this.i + "]";
+            return Registries.ITEM.getId(this.item) + "[count=" + this.count + ",i=" + this.i + "]";
         }
 
         @Override

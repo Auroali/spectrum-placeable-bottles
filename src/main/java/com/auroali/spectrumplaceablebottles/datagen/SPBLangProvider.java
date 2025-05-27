@@ -12,5 +12,6 @@ public class SPBLangProvider extends FabricLanguageProvider {
     @Override
     public void generateTranslations(TranslationBuilder translationBuilder) {
         translationBuilder.add(SPBBlocks.BOTTLES, "Bottles");
+        translationBuilder.add(SPBBlocks.MUGS, "Mugs");
     }
 }
