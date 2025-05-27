@@ -8,6 +8,8 @@
     "Auroali"
   ],
   "contact": {
+    "sources": "https://github.com/Auroali/spectrum-placeable-bottles",
+    "issues": "https://github.com/Auroali/spectrum-placeable-bottles/issues"
   },
   "license": "MIT",
   "icon": "assets/spectrumplaceablebottles/icon.png",
