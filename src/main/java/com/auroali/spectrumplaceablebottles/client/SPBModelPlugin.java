@@ -28,6 +28,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+// i am going to be entirely honest, i cant remember why i thought this was the best way to go about doing this
+// but baking each variation of each model works and so i am sticking with it
+// should probably at least clean this up at some point tho
 public class SPBModelPlugin implements ModelLoadingPlugin {
     // the transforms for each index at each count value
     private static final Int2ObjectMap<List<AffineTransformation>> TRANSFORMS = new Int2ObjectOpenHashMap<>() {{
