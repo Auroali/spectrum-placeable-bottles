@@ -1,15 +1,15 @@
 {
   "replace": false,
   "values": [
-    "spectrum:slushslide",
-    "spectrum:junket",
+    "spectrum:demon_tea",
     "spectrum:azalea_tea",
     "spectrum:karak_chai",
-    "spectrum:demon_tea",
-    "spectrum:hot_chocolate",
-    "spectrum:peach_cream",
+    "spectrum:junket",
     "spectrum:restoration_tea",
+    "spectrum:hot_chocolate",
     "spectrum:glistering_jelly_tea",
-    "spectrum:golden_bristle_tea"
+    "spectrum:golden_bristle_tea",
+    "spectrum:slushslide",
+    "spectrum:peach_cream"
   ]
 }

@@ -13,5 +13,6 @@ public class SPBLangProvider extends FabricLanguageProvider {
     public void generateTranslations(TranslationBuilder translationBuilder) {
         translationBuilder.add(SPBBlocks.BOTTLES, "Bottles");
         translationBuilder.add(SPBBlocks.MUGS, "Mugs");
+        translationBuilder.add("item.spectrumplaceablebottles.tooltip.placeable", "Placeable");
     }
 }

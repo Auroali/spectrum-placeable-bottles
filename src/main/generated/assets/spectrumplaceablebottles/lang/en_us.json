@@ -1,3 +1,5 @@
 {
-  "block.spectrumplaceablebottles.bottles": "Bottles"
+  "block.spectrumplaceablebottles.bottles": "Bottles",
+  "block.spectrumplaceablebottles.mugs": "Mugs",
+  "item.spectrumplaceablebottles.tooltip.placeable": "Placeable"
 }
