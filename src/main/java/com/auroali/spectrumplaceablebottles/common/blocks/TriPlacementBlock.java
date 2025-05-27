@@ -92,7 +92,9 @@ public class TriPlacementBlock extends BlockWithEntity implements Waterloggable 
 
     private ActionResult tryFill(PlayerEntity player, ItemStack stack, World world, BlockState state, BlockPos pos) {
         if (world.getBlockEntity(pos) instanceof TriPlacementBlockEntity entity) {
-            ItemStack split = stack.split(1);
+            ItemStack split = player.getAbilities().creativeMode
+              ? stack.copy().split(1)
+              : stack.split(1);
             if (entity.push(split)) {
                 world.playSound(
                   player,
